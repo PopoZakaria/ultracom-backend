@@ -24,9 +24,11 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $items = Transaction::all();
+        $keyword = $request->keyword;
+        $items = Transaction::where('name', 'LIKE', '%'.$keyword.'%')
+        ->paginate(15);
 
         return view('pages.transactions.index')->with([
             'items' => $items

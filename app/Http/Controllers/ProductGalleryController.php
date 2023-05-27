@@ -62,6 +62,9 @@ class ProductGalleryController extends Controller
 
         ProductGallery::create($data);
         return redirect()->route('product-galleries.index');
+
+
+
     }
 
     /**
@@ -83,7 +86,15 @@ class ProductGalleryController extends Controller
      */
     public function edit($id)
     {
-        //
+         
+            
+            $item = ProductGallery::findOrFail($id);
+            $products = Product::all();
+    
+            return view('pages.product-galleries.edit')->with([
+                'item' => $item,
+                'products' => $products
+            ]);
     }
 
     /**
@@ -95,8 +106,18 @@ class ProductGalleryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+        
+            
+        $data = $request->all();
+        $data['photo'] = $request->file('photo')->store(
+            'assets/product', 'public'
+        );
+    
+        $item = ProductGallery::findOrFail($id);
+    
+        $item->update($data);
+    
+        return redirect()->route('product-galleries.index');    }
 
     /**
      * Remove the specified resource from storage.

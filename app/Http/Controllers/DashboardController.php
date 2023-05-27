@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use App\Models\UserMobile;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -20,7 +22,9 @@ class DashboardController extends Controller
     public function index()
     {
         $income = Transaction::where('transaction_status','SUCCESS')->sum('transaction_total');
+        $user = UserMobile::count();
         $sales = Transaction::count();
+        $service = Service::count();
         $items = Transaction::with('details')->orderBy('id','DESC')->take(5)->get();
         $pie = [
             'pending' => Transaction::where('transaction_status','PENDING')->count(),
@@ -32,7 +36,9 @@ class DashboardController extends Controller
             'income' => $income,
             'sales' => $sales,
             'items' => $items,
-            'pie' => $pie
+            'pie' => $pie,
+            'user' => $user,
+            'service' => $service
         ]);
     }
 }
