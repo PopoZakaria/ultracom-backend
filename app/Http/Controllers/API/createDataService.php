@@ -8,9 +8,10 @@ if($con){
     $jml_service = $_POST['jml_service'];
     $catatan_service = $_POST['catatan_service'];
     $metode_pembayaran = $_POST['metode_pembayaran'];
+    $status = $_POST['status'];
 
-    $insert = "INSERT INTO data_service(id_service, id, nama_kategori, jml_service, catatan_service, metode_pembayaran) VALUES ('$id_service', '$id', '$nama_kategori', 
-    '$jml_service', '$catatan_service' , '$metode_pembayaran')";
+    $insert = "INSERT INTO data_service(id_service, id, nama_kategori, jml_service, catatan_service, metode_pembayaran, status) VALUES ('$id_service', '$id', '$nama_kategori', 
+    '$jml_service', '$catatan_service' , '$metode_pembayaran', '$status')";
 
     if($id_service != "") {
         $result = mysqli_query($con, $insert);
