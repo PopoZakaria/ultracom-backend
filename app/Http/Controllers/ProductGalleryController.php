@@ -6,6 +6,7 @@ use App\Http\Requests\ProductGalleryRequest;
 use App\Models\Product;
 use App\Models\ProductGallery;
 use Illuminate\Http\Request;
+use Alert;
 
 class ProductGalleryController extends Controller
 {
@@ -60,10 +61,10 @@ class ProductGalleryController extends Controller
             'assets/product', 'public'
         );
 
+        Alert::success('Success', 'Data Gambar Berhasil Ditambahkan');
+
         ProductGallery::create($data);
         return redirect()->route('product-galleries.index');
-
-
 
     }
 
@@ -112,6 +113,8 @@ class ProductGalleryController extends Controller
         $data['photo'] = $request->file('photo')->store(
             'assets/product', 'public'
         );
+
+        Alert::success('Success', 'Data Gambar Berhasil Diubah');
     
         $item = ProductGallery::findOrFail($id);
     
@@ -129,6 +132,8 @@ class ProductGalleryController extends Controller
     {
         $item = ProductGallery::findOrFail($id);
         $item->delete();
+
+        
 
         return redirect()->route('product-galleries.index');
     }
